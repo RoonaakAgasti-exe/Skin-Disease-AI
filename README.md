@@ -69,7 +69,6 @@ pip install -r requirements.txt
 **Dataset structure:**
 
 Download "Skin-Diseases" dataset from kaggle
----
 
 ## Usage
 
