@@ -67,12 +67,8 @@ pip install -r requirements.txt
 ```
 
 **Dataset structure:**
-```
-archive/SkinDisease/SkinDisease/
-├── train/   # 22 class folders
-└── test/    # 22 class folders
-```
 
+Download "Skin-Diseases" dataset from kaggle
 ---
 
 ## Usage
