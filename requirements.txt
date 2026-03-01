@@ -1,0 +1,14 @@
+tensorflow
+flask
+opencv-python
+albumentations
+scikit-learn
+fpdf2
+numpy
+scipy
+Pillow
+Werkzeug
+matplotlib
+seaborn
+pandas
+tqdm
