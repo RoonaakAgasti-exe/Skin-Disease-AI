@@ -1,11 +1,7 @@
 # 🩺 SkinAI Clinical Gateway: Advanced Medical Diagnosis System
 
-![Medical Dashboard](docs/dashboard.png)
+<img width="1090" height="730" alt="Screenshot 2026-03-07 175511" src="https://github.com/user-attachments/assets/3ffc097b-dc5e-4ff1-bc36-5e9f090a0d1b" />
 
-[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
-[![Flask](https://img.shields.io/badge/flask-%23000.svg?style=flat&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97%20-Transformers-orange)](https://huggingface.co/docs/transformers/index)
 
 **SkinAI Clinical Gateway** is a professional-grade dermatological diagnostic support tool. It leverages **Zero-Shot Vision Transformers (ViT)** and **Advanced Computer Vision** to provide clinical-grade analysis of skin conditions instantly.
 
