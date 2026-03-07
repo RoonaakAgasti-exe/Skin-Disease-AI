@@ -1,155 +1,119 @@
-# Skin Disease AI
+# 🩺 SkinAI Clinical Gateway: Advanced Medical Diagnosis System
 
-AI-powered skin disease classification using an ensemble of three deep learning models with GradCAM visualisation, uncertainty quantification, and PDF reporting.
+![Medical Dashboard](docs/dashboard.png)
 
-<img width="1428" height="910" alt="Screenshot 2026-03-01 195052" src="https://github.com/user-attachments/assets/1c766460-1953-48c4-9909-ae2e16de0932" />
-<img width="780" height="894" alt="Screenshot 2026-03-01 195111" src="https://github.com/user-attachments/assets/373af9cf-659e-42a0-9dbe-57253d014f24" />
-<img width="351" height="712" alt="Screenshot 2026-03-01 195257" src="https://github.com/user-attachments/assets/29375ab1-46bd-460b-8ab9-e245eea90f8d" />
+[![Python 3.9+](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![Flask](https://img.shields.io/badge/flask-%23000.svg?style=flat&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![HuggingFace](https://img.shields.io/badge/%F0%9F%A4%97%20-Transformers-orange)](https://huggingface.co/docs/transformers/index)
 
-> ⚠️ **Medical Disclaimer** — For educational and decision support purposes only. Not a substitute for professional medical diagnosis. Not FDA-approved for clinical use.
-
----
-
-## Overview
-
-Classifies skin conditions across **22 classes** using an ensemble of EfficientNetV2-M, ConvNeXt-Tiny, and Vision Transformer (ViT) models. Includes a Flask web app with drag-and-drop upload, GradCAM attention heatmaps, and downloadable PDF reports.
+**SkinAI Clinical Gateway** is a professional-grade dermatological diagnostic support tool. It leverages **Zero-Shot Vision Transformers (ViT)** and **Advanced Computer Vision** to provide clinical-grade analysis of skin conditions instantly.
 
 ---
 
-## Classes
-
-| # | Condition | # | Condition |
-|---|-----------|---|-----------|
-| 1 | Acne | 12 | Psoriasis |
-| 2 | Actinic Keratosis ⚠ | 13 | Rosacea |
-| 3 | Benign Tumors | 14 | Seborrhoeic Keratoses |
-| 4 | Bullous | 15 | Skin Cancer ⚠ |
-| 5 | Candidiasis | 16 | Sun / Sunlight Damage |
-| 6 | Drug Eruption | 17 | Tinea |
-| 7 | Eczema | 18 | Unknown / Normal |
-| 8 | Infestations & Bites | 19 | Vascular Tumors |
-| 9 | Lichen | 20 | Vasculitis |
-| 10 | Lupus | 21 | Vitiligo |
-| 11 | Moles | 22 | Warts |
-
-⚠ = automatically flagged as high-risk with urgent-care warning.
+## 📑 Table of Contents
+- [Project Overview](#-project-overview)
+- [Key Features](#-key-features)
+- [Technical Architecture](#-technical-architecture)
+- [Clinical Knowledge Base](#-clinical-knowledge-base)
+- [Installation & Setup](#-installation--setup)
+- [Usage Guide](#-usage-guide)
+- [Project Structure](#-project-structure)
+- [Safety & Disclaimer](#-safety--disclaimer)
 
 ---
 
-## Features
-
-- **Ensemble model** — EfficientNetV2-M (40%) + ConvNeXt-Tiny (35%) + ViT (25%)
-- **GradCAM++ heatmaps** — highlights which skin region influenced the prediction
-- **Uncertainty quantification** — entropy-based confidence measurement
-- **High-risk alerts** — automatic warnings for malignant conditions
-- **PDF reports** — downloadable report with images, scores, and recommendations
-- **Dark clinical UI** — drag-and-drop upload, real-time results, mobile-friendly
+## 🌟 Project Overview
+The gateway bridges the gap between complex AI and clinical practice. By using natural language supervision (CLIP), the system identifies skin pathologies without requiring local datasets, making it a flexible and powerful tool for medical research and preliminary screening.
 
 ---
 
-## Performance
-
-| Metric | Score |
-|--------|-------|
-| Overall accuracy | ~85–90% |
-| High-risk sensitivity | > 95% |
+## 🚀 Key Features
+- **Zero-Shot AI Core**: Powered by `openai/clip-vit-large-patch14`. No local training required.
+- **DullRazor Preprocessing**: Automatic hair removal for clearer lesion analysis.
+- **Gray World Restoration**: Illumination normalization for unbiased diagnostics.
+- **Live Diagnostics**: Real-time probability visualization via **Chart.js**.
+- **Automated Reporting**: Instant PDF generation with clinical metadata and preprocessed visual evidence.
+- **Medical Dashboard**: Professional, clean UI designed for healthcare environments.
 
 ---
 
-## Installation
+## 🏗 Technical Architecture
 
-**Requirements:** Python 3.8+, 8GB RAM, GPU optional
+### 🧠 The AI Inference Engine
+The system utilizes **CLIP (Contrastive Language-Image Pre-training)** to perform zero-shot classification:
+- **Zero-Shot Capability**: Recognizes skin conditions by correlating visual patterns with clinical text descriptions.
+- **Ensemble-Lite Logic**: Optimized single-prompt inference for rapid response times.
 
+### 🖼 Medical Computer Vision
+Two critical classical CV algorithms ensure high-fidelity input:
+1. **DullRazor**: Morphological Blackhat filtering identifies hair artifacts, which are then inpainted using telea algorithms.
+2. **Gray World**: Estimates and corrects color cast based on the "Gray World" hypothesis, ensuring standard clinical color representation.
+
+---
+
+## 🔬 Clinical Knowledge Base
+The diagnostic engine covers 22 clinical classes including:
+- **Melanoma & Skin Cancer** (High Risk)
+- **Actinic Keratosis** (Pre-cancerous)
+- **Chronic Inflammatory**: Eczema, Psoriasis, Rosacea.
+- **Infections**: Candidiasis, Tinea, Warts.
+
+Each result is paired with:
+- ✅ **Standard Medicines**: Common clinical treatments (e.g., Metronidazole, Retinoids).
+- ✅ **Preventive Strategy**: Evidence-based lifestyle adjustments.
+
+---
+
+## 💻 Installation & Setup
+
+### 1. Requirements
+- Python 3.9+
+- 8GB+ RAM
+- Windows/Linux/macOS
+
+### 2. Quick Install
 ```bash
-git clone https://github.com/yourusername/skin-disease-ai.git
+# Clone the repository
+git clone https://github.com/your-repo/skin-disease-ai.git
 cd skin-disease-ai
+
+# Install dependencies
 pip install -r requirements.txt
 ```
 
-**Dataset structure:**
-
-Download "Skin-Diseases" dataset from kaggle
-
-```
-archive/SkinDisease/SkinDisease/
-├── train/   # 22 class folders
-└── test/    # 22 class folders
-```
-
-## Usage
-
-**Train:**
-```bash
-python train.py                        # all models
-python train.py --model efficientnetv2 # single model
-```
-
-**Run app:**
+### 3. Run
 ```bash
 python app.py
-# → http://localhost:5000
 ```
+Open [http://localhost:5000](http://localhost:5000) in your browser.
 
-**API:**
-```python
-import requests
+---
 
-with open('image.jpg', 'rb') as f:
-    res = requests.post('http://localhost:5000/predict', files={'image': f})
-
-print(res.json()['top_prediction'])
-# {'class': 'Eczema', 'confidence': 0.847, 'risk_level': 'low'}
-```
-
-**Endpoints:**
-```
-POST /predict          → run inference on uploaded image
-GET  /report/<scan_id> → download PDF report
-GET  /api/health       → system health check
-GET  /api/classes      → list all 22 classes
+## 📄 Project Structure
+```text
+├── app.py                # Main Flask Application
+├── predictor.py          # AI & CV Preprocessing Logic
+├── report_generator.py   # PDF Generation Service
+├── config.py             # Medical DB & Configuration
+├── static/
+│   ├── css/style.css     # Medical UI Design
+│   └── js/app.js         # Frontend Logic & Charts
+└── templates/
+    └── index.html        # Clinical Dashboard
 ```
 
 ---
 
-## Project Structure
-
-```
-skin-disease-ai/
-├── app.py               # Flask server + API endpoints
-├── models.py            # EfficientNetV2, ConvNeXt, ViT architectures
-├── predictor.py         # Ensemble inference logic
-├── data_loader.py       # Preprocessing + augmentation pipeline
-├── gradcam.py           # GradCAM++ visualisation
-├── report_generator.py  # PDF report generation (fpdf2)
-├── train.py             # Full training pipeline
-├── simple_train.py      # Simplified sklearn-based training
-├── config.py            # Model weights, class names, settings
-├── templates/index.html # Web UI
-├── static/css/          # Stylesheets
-├── static/js/           # Frontend JavaScript
-└── requirements.txt
-```
+## ⚠️ Safety & Disclaimer
+> [!WARNING]
+> This software is for **Educational and Clinical Support Purposes Only**.
+> 1. AI models can produce **False Negatives** or **False Positives**.
+> 2. This is **NOT** a definitive medical diagnosis.
+> 3. Results **MUST** be verified by a board-certified dermatologist.
+> 4. In case of emergency or rapidly changing skin lesions, seek professional care immediately.
 
 ---
 
-## Configuration
-
-Edit `config.py` to adjust:
-
-```python
-ENSEMBLE_WEIGHTS = {'efficientnetv2': 0.40, 'convnext': 0.35, 'vit': 0.25}
-HIGH_RISK_CLASSES = ['SkinCancer', 'Actinic_Keratosis']
-MAX_UPLOAD_SIZE   = 10 * 1024 * 1024   # 10MB
-```
-
----
-
-## Tech Stack
-
-**Backend:** Flask · TensorFlow 2.15 · Keras · OpenCV · fpdf2  
-**Frontend:** Vanilla JS · CSS variables · no framework dependencies  
-**Training:** Focal Loss · class-balanced weights · two-phase fine-tuning
-
----
-
-*Built for advancing dermatological AI research.*
+## 📜 License
+Distributed under the **MIT License**. See `LICENSE` for more information.

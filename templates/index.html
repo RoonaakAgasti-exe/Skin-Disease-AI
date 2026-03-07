@@ -1,186 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Skin Disease AI Classifier | Advanced Medical Diagnosis</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🩺</text></svg>">
+    <title>SkinAI Clinical Gateway</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
-<body>
-    <div id="app">
-        <!-- Header -->
-        <header class="header">
-            <div class="container">
-                <div class="header-content">
-                    <h1 class="logo">
-                        <span class="logo-icon">🩺</span>
-                        <span class="logo-text">SkinAI</span>
-                    </h1>
-                    <p class="tagline">Advanced AI-powered skin disease classification for clinical decision support</p>
-                </div>
-            </div>
-        </header>
 
-        <!-- High-risk Alert Banner -->
-        <div id="high-risk-banner" class="alert-banner alert-danger" role="alert" hidden>
-            <div class="container">
-                <div class="alert-content">
-                    <span class="alert-icon">⚠️</span>
-                    <div class="alert-text">
-                        <strong>High-risk condition detected.</strong> 
-                        This requires immediate medical evaluation. Please consult a dermatologist urgently.
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <span class="nav-logo">SkinAI <span class="logo-accent">Clinical</span></span>
+            <div class="nav-status">System: Online</div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="grid-layout">
+            <section class="card upload-section">
+                <div class="section-badge">Diagnostic Input</div>
+                <div class="drop-zone" id="drop-zone">
+                    <input type="file" id="file-input" accept="image/*" hidden>
+                    <div class="upload-art">🩺</div>
+                    <h3>Start Clinical Scan</h3>
+                    <p>Upload or drag patient imaging data</p>
+                    <div class="prep-indicator">Advanced CV Preprocessing Active</div>
+                </div>
+                <div class="disclaimer-mini">
+                    <strong>Medical Disclaimer:</strong> This system is an AI-assisted tool for clinical support. It is
+                    not a replacement for professional diagnosis. Consult a physician immediately for any skin concerns.
+                </div>
+            </section>
+
+            <section class="card results-section">
+                <div class="section-badge">Diagnostic Analysis</div>
+                <div id="idle-view" class="state-view">
+                    <div class="pulse-icon">🧬</div>
+                    <p>Waiting for scan sequence...</p>
+                </div>
+
+                <div id="loading-view" class="state-view hidden-view">
+                    <div class="medic-spinner"></div>
+                    <p>Analyzing morphology & patterns...</p>
+                </div>
+
+                <div id="results-view" class="state-view hidden-view">
+                    <div class="top-result-header">
+                        <h2 id="condition-name">Condition</h2>
+                        <span id="risk-badge" class="badge">Risk</span>
+                    </div>
+
+                    <div class="chart-container">
+                        <canvas id="prediction-chart"></canvas>
+                    </div>
+
+                    <div class="medical-data-grid">
+                        <div class="data-group">
+                            <h4>Description</h4>
+                            <p id="condition-desc" class="desc-text"></p>
+                        </div>
+                        <div class="data-group">
+                            <h4>Recommended Medicines</h4>
+                            <ul id="medicine-list" class="tag-list"></ul>
+                        </div>
+                        <div class="data-group">
+                            <h4>Preventive Measures</h4>
+                            <ul id="preventive-list" class="tag-list"></ul>
+                        </div>
+                    </div>
+
+                    <div class="action-footer">
+                        <button id="report-btn" class="btn-primary">Download Clinical Report</button>
                     </div>
                 </div>
-            </div>
+            </section>
         </div>
+    </main>
 
-        <!-- Main Content -->
-        <main class="main">
-            <div class="container">
-                <div class="layout">
-                    <!-- Upload Panel -->
-                    <aside class="panel panel-upload">
-                        <h2 class="panel-title">Image Analysis</h2>
-                        <form id="upload-form" class="upload-form">
-                            <div class="drop-zone" id="drop-zone">
-                                <input type="file" name="image" accept="image/*" id="file-input" />
-                                <div class="drop-content">
-                                    <div class="drop-icon">📁</div>
-                                    <p class="drop-text">Drop image here or click to upload</p>
-                                    <p class="drop-hint">Supports JPG, PNG, GIF (max 16MB)</p>
-                                </div>
-                            </div>
-                        </form>
-                        
-                        <div class="upload-info">
-                            <h3 class="info-title">Best Practices</h3>
-                            <ul class="best-practices">
-                                <li>Use clear, well-lit photos</li>
-                                <li>Focus on the affected area</li>
-                                <li>Avoid shadows and glare</li>
-                                <li>Include scale reference when possible</li>
-                            </ul>
-                        </div>
-                    </aside>
+    <footer class="legal-footer">
+        <div class="footer-container">
+            <p>&copy; 2026 SkinAI Clinical Systems. For research and clinical support only.</p>
+            <p class="warning-text">AI can be inaccurate. Always verify results with a board-certified dermatologist.
+            </p>
+        </div>
+    </footer>
 
-                    <!-- Results Panel -->
-                    <section class="panel panel-results">
-                        <h2 class="panel-title">Analysis Results</h2>
-                        
-                        <!-- Idle State -->
-                        <div id="state-idle" class="state state-idle">
-                            <div class="idle-content">
-                                <div class="idle-icon">🔬</div>
-                                <p class="idle-text">Upload a skin image to receive AI-powered analysis with confidence scores, uncertainty metrics, and visual explanations.</p>
-                            </div>
-                        </div>
-
-                        <!-- Loading State -->
-                        <div id="state-loading" class="state state-loading" hidden>
-                            <div class="loading-content">
-                                <div class="spinner"></div>
-                                <p class="loading-text">Analyzing image with ensemble AI models...</p>
-                                <div class="loading-steps">
-                                    <div class="step active">Preprocessing image</div>
-                                    <div class="step">Running predictions</div>
-                                    <div class="step">Generating visualizations</div>
-                                    <div class="step">Creating report</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Results State -->
-                        <div id="state-results" class="state state-results" hidden>
-                            <div class="results-content">
-                                <!-- Disclaimer -->
-                                <div class="disclaimer">
-                                    <span class="disclaimer-icon">ℹ️</span>
-                                    <span class="disclaimer-text">This is AI-assisted analysis for educational purposes. Always consult a healthcare professional.</span>
-                                </div>
-
-                                <!-- Primary Result -->
-                                <div class="result-primary">
-                                    <h3 id="result-label" class="result-label">—</h3>
-                                    <div class="confidence-meter">
-                                        <div class="confidence-label">Confidence</div>
-                                        <div class="confidence-bar-container">
-                                            <div id="confidence-bar" class="confidence-bar"></div>
-                                        </div>
-                                        <div id="confidence-value" class="confidence-value">0%</div>
-                                    </div>
-                                    <span id="risk-badge" class="risk-badge risk-low">Low Risk</span>
-                                </div>
-
-                                <!-- Uncertainty -->
-                                <div class="uncertainty-section">
-                                    <div class="metric-item">
-                                        <span class="metric-label">Model Uncertainty</span>
-                                        <span id="uncertainty-value" class="metric-value">—</span>
-                                    </div>
-                                    <div id="uncertainty-warning" class="uncertainty-warning" hidden>
-                                        <span class="warning-icon">⚠️</span>
-                                        <span>High uncertainty detected. Clinical correlation recommended.</span>
-                                    </div>
-                                </div>
-
-                                <!-- GradCAM Visualization -->
-                                <div class="visualization-section">
-                                    <h4 class="section-title">Attention Visualization</h4>
-                                    <div class="gradcam-container">
-                                        <img id="gradcam-img" class="gradcam-image" alt="AI attention heatmap" />
-                                        <div class="gradcam-overlay" id="gradcam-overlay">
-                                            <div class="overlay-content">
-                                                <div class="overlay-icon">👁️</div>
-                                                <p>GradCAM visualization shows areas the AI focused on</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Top Predictions -->
-                                <div class="predictions-section">
-                                    <h4 class="section-title">Top Predictions</h4>
-                                    <div class="predictions-table">
-                                        <div class="table-header">
-                                            <div class="header-rank">Rank</div>
-                                            <div class="header-condition">Condition</div>
-                                            <div class="header-confidence">Confidence</div>
-                                            <div class="header-risk">Risk</div>
-                                        </div>
-                                        <div id="predictions-body" class="table-body">
-                                            <!-- Predictions will be inserted here -->
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Action Buttons -->
-                                <div class="actions-section">
-                                    <button id="download-report" class="btn btn-primary">
-                                        <span class="btn-icon">📄</span>
-                                        Download PDF Report
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-                </div>
-            </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <div class="container">
-                <div class="footer-content">
-                    <!-- Footer content removed as requested -->
-                </div>
-            </div>
-        </footer>
-    </div>
-
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+    <script src="/static/js/app.js"></script>
 </body>
+
 </html>

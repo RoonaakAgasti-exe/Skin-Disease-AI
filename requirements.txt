@@ -1,4 +1,3 @@
-tensorflow
 flask
 opencv-python
 albumentations
@@ -12,3 +11,5 @@ matplotlib
 seaborn
 pandas
 tqdm
+transformers
+torch
